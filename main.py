@@ -13,13 +13,6 @@ client = MongoClient(MONGO_URL)
 db = client.app129241652
 collection = db.shoutouts
 
-# @app.route("/")
-# def hello():
-# 	return "<h1>NESTOR ES JOTO</h1>"
-	
-# if __name__ == '__main__':
-#     app.run(host = '0.0.0.0')
-
 
 @app.route("/", methods=['GET']) 
 def index(): 
@@ -30,6 +23,11 @@ def index():
 def post(): 
 	shout = {"name":request.form['name'], "message":request.form['message']} 
 	shout_id = collection.insert(shout) 
+	return redirect('/')
+
+@app.route("/deleteAll", methods=['GET']) 
+def deleteAll(): 
+	collection.remove()
 	return redirect('/')
 	
 if __name__ == "__main__":

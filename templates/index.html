@@ -10,6 +10,9 @@
         message: <input type="text" name="message"/>
         <input type="submit" value="Submit"/>
     </form>
+    <form action="/deleteAll" method="get">
+        <input type="submit" value="Delete All"/>
+    </form>
     {% for shout in shouts %}
     {{ shout.name }} - {{ shout.message }} <br>
     {% endfor %}
