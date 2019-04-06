@@ -13,8 +13,16 @@
     <form action="/deleteAll" method="get">
         <input type="submit" value="Delete All"/>
     </form>
+    <form action="/createNew" method="post">
+        Colonia: <input type="text" name="colonia"/>
+        <input type="submit" value="Crear"/>
+    </form>
+    <form action="/changeStatus" method="post">
+        Status: <input type="number" name="status"/>
+        <input type="submit" value="Cambiar Status"/>
+    </form>
     {% for shout in shouts %}
-    {{ shout.name }} - {{ shout.message }} <br>
+    Status: {{ shout.name}}-{{shout.message}} <br>
     {% endfor %}
 </body>
 </html>
