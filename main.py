@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect 
+from flask import Flask, render_template, request, redirect, jsonify 
 import os
 import pymongo
 import pymongo 
@@ -39,7 +39,7 @@ def post():
 	values = { "$set": {
 	      "neighborhood": request.form['colonia'],
 	      "status": request.form['status'],
-	      "adress":"", "name":""
+	      "address":"", "name":""
 	      } }
 
 	shout_id = collection.update_one(find,values) 
@@ -50,6 +50,14 @@ def createNew():
 	shout = {"neighborhood":request.form['colonia'],"status":0, "adress":"", "name":""}
 	shout_id = collection.insert(shout)
 	return redirect('/')
+
+@app.route("/getStatus", methods=['GET']) 
+def getStatus(): 
+	jstatus = dict()
+	find = {"neighborhood":request.args.get('colonia')}
+	status = collection.find_one(find)
+	jstatus = {'status':int(status['status']), 'address':status['address'], 'name':status['name']}
+	return jsonify(jstatus)
 	
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000)) 
